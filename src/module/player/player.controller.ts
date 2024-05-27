@@ -36,12 +36,18 @@ export class PlayerController {
     }
 
     @Put(':id')
-    update(@Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
-        return this.playerService.update(+id, updatePlayerDto);
+    async update(@Res() res: Response, @Param('id') id: string, @Body() updatePlayerDto: UpdatePlayerDto) {
+        const resp = await this.playerService.update(+id, updatePlayerDto)
+        
+        if (resp.status == false) {
+            return res.status(HttpStatus.BAD_REQUEST).json(resp.message)
+        }
+
+        return res.status(HttpStatus.OK).json(resp)
     }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.playerService.remove(+id);
-  }
+    // @Delete(':id')
+    // remove(@Param('id') id: string) {
+    //     return this.playerService.remove(+id);
+    // }
 }
