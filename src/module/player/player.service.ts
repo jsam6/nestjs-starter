@@ -46,6 +46,11 @@ export class PlayerService {
         }
     }
 
+    async findOneByEmail(email: string) {
+        return this.playerRepository.findOne({ where: {email: email} })
+    }
+
+
     async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<ServiceResponse> {
         const player = await this.playerRepository.findOne({ where: {id: id} })
         if (!player) return { status: false, message: "player not exist" }

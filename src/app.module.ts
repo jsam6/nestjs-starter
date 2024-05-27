@@ -6,12 +6,14 @@ import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { DbConfig } from './db/config'
 import { DataSource } from 'typeorm';
+import { AuthModule } from './module/auth/auth.module';
 
 @Module({
     imports: [
         ConfigModule.forRoot(),
         TypeOrmModule.forRoot(DbConfig),
-        PlayerModule
+        PlayerModule,
+        AuthModule
     ],
     controllers: [AppController],
     providers: [AppService],
