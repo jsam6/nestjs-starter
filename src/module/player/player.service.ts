@@ -4,6 +4,7 @@ import { UpdatePlayerDto } from './dto/update-player.dto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
+import { ServiceResponse } from 'src/interface/response';
 
 @Injectable()
 export class PlayerService {
@@ -14,7 +15,7 @@ export class PlayerService {
     ){
 
     }
-    async create(createPlayerDto: CreatePlayerDto): Promise<{ status: boolean; message?: string; data?: any; }>  {
+    async create(createPlayerDto: CreatePlayerDto): Promise<ServiceResponse>  {
         const player = await this.playerRepository.findOne({ where: {email: createPlayerDto.email} })
         if (player) {
             return {
@@ -39,7 +40,7 @@ export class PlayerService {
     return `This action returns a #${id} player`;
   }
 
-    async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<{ status: boolean; message?: string; data?: any; }> {
+    async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<ServiceResponse> {
         const player = await this.playerRepository.findOne({ where: {id: id} })
         if (!player) return { status: false, message: "player not exist" }
 
