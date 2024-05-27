@@ -25,8 +25,14 @@ export class PlayerController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string) {
-        return this.playerService.findOne(+id);
+    async findOne(@Res() res: Response, @Param('id') id: string) {
+        const resp = await this.playerService.findOne(+id)
+        
+        if (resp.status == false) {
+            return res.status(HttpStatus.BAD_REQUEST).json(resp.message)
+        }
+
+        return res.status(HttpStatus.OK).json(resp)
     }
 
     @Put(':id')

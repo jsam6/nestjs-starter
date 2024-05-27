@@ -36,9 +36,15 @@ export class PlayerService {
         return this.playerRepository.find()
     }
 
-  findOne(id: number) {
-    return `This action returns a #${id} player`;
-  }
+    async findOne(id: number) {
+        const player = await this.playerRepository.findOne({ where: {id: id} })
+        if (!player) return { status: false, message: "player not exist" }
+        
+        return {
+            status: true,
+            data: player
+        }
+    }
 
     async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<ServiceResponse> {
         const player = await this.playerRepository.findOne({ where: {id: id} })
