@@ -5,7 +5,7 @@ export class Player {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({nullable:true})
     username: string
 
     @Column()
@@ -14,27 +14,27 @@ export class Player {
     @Column()
     password: string
 
-    @Column()
+    @Column({nullable:true})
     position: string
 
-    @Column()
+    @Column({nullable:true})
     nationality: string
 
-    @Column()
+    @Column({nullable:true})
     bio: string
 
-    @Column({name:"mobile_prefix"})
+    @Column({name:"mobile_prefix", nullable: true})
     mobilePrefix: number
 
-    @Column({name:"mobile_number"})
+    @Column({name:"mobile_number", nullable: true})
     mobileNumber: number
     
-    @Column({name:"image_url"})
+    @Column({name:"image_url", nullable: true})
     imageUrl: string
 
-    @Column({name:"city"})
+    @Column({name:"city", nullable: true})
     city : string
     
-    @Column({name:"state"})
+    @Column({name:"state", nullable: true})
     state : string
 }
