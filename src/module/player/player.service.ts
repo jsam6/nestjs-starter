@@ -22,7 +22,7 @@ export class PlayerService {
                 message: "player already exist"
             }
         }
-        
+
         const createdPlayer = await this.playerRepository.save(createPlayerDto)
         
         return {
@@ -39,9 +39,19 @@ export class PlayerService {
     return `This action returns a #${id} player`;
   }
 
-  update(id: number, updatePlayerDto: UpdatePlayerDto) {
-    return `This action updates a #${id} player`;
-  }
+    async update(id: number, updatePlayerDto: UpdatePlayerDto): Promise<{ status: boolean; message?: string; data?: any; }> {
+        const player = await this.playerRepository.findOne({ where: {id: id} })
+        if (!player) return { status: false, message: "player not exist" }
+
+        player.username = updatePlayerDto.username
+        player.email = updatePlayerDto.email
+        const updated = await this.playerRepository.save(player)
+
+        return {
+            status: true,
+            data: updated
+        }
+    }
 
   remove(id: number) {
     return `This action removes a #${id} player`;
