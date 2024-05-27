@@ -1,5 +1,6 @@
 import { DataSourceOptions, DataSource } from 'typeorm';
 import 'dotenv/config'
+import { Player } from 'src/module/player/entities/player.entity';
 
 export const DbConfig: DataSourceOptions = {
     type: 'postgres',
@@ -8,9 +9,9 @@ export const DbConfig: DataSourceOptions = {
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_DATABASE,
-    synchronize: false,
+    synchronize: true,
     migrationsRun: true,
-    entities: ['dist/db/schema/*{ .ts,.js}'],
-    migrations: ['dist/db/migration/*{.ts,.js}'],
+    entities: [Player],
+    // migrations: ['dist/db/migration/*{.ts,.js}'],
 };
 
